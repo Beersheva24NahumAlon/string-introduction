@@ -7,7 +7,6 @@ public class Strings {
     }
 
     public static String javaVariable() {
-        //TODO
-        return "";
+        return "([a-z]|[A-Z]|_|\\$)([a-z]|[A-Z]|[0-9]|_|\\$)*";
     }
 }
