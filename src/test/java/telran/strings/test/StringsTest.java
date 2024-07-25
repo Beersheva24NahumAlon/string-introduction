@@ -23,9 +23,17 @@ public class StringsTest {
     @Test
     void javaVariableTest() {
         String str;
+        str = "j";
+        assertEquals(true, str.matches(javaVariable()));
         str = "javaVariable";
         assertEquals(true, str.matches(javaVariable()));
-        str = "java_Variable$";
+        str = "Java_Variable$";
         assertEquals(true, str.matches(javaVariable()));
+        str = "1java_Variable$";
+        assertEquals(false, str.matches(javaVariable()));
+        str = "java%Variable$";
+        assertEquals(false, str.matches(javaVariable()));
+        str = "0";
+        assertEquals(false, str.matches(javaVariable()));
     }
 }
