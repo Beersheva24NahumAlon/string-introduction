@@ -9,31 +9,25 @@ public class StringsTest {
 
     @Test
     void firstNameTest() {
-        String str;
-        str = "Nahum";
-        assertEquals(true, str.matches(firstName()));
-        str = "Nah";
-        assertEquals(false, str.matches(firstName()));
-        str = "NAhum";
-        assertEquals(false, str.matches(firstName()));
-        str = "NahuM";
-        assertEquals(false, str.matches(firstName()));
+        String[] strPass = { "Nahum" };
+        String[] strFail = { "Nah", "NAhum", "NahuM" };
+        for (String str : strPass) {
+            assertEquals(true, str.matches(firstName()));
+        }
+        for (String str : strFail) {
+            assertEquals(false, str.matches(firstName()));
+        }
     }
 
     @Test
     void javaVariableTest() {
-        String str;
-        str = "j";
-        assertEquals(true, str.matches(javaVariable()));
-        str = "javaVariable";
-        assertEquals(true, str.matches(javaVariable()));
-        str = "Java_Variable$";
-        assertEquals(true, str.matches(javaVariable()));
-        str = "1java_Variable$";
-        assertEquals(false, str.matches(javaVariable()));
-        str = "java%Variable$";
-        assertEquals(false, str.matches(javaVariable()));
-        str = "0";
-        assertEquals(false, str.matches(javaVariable()));
+        String[] strPass = { "j", "$" ,"javaVariable", "_JavaVariable$", "$JavaVariable_"};
+        String[] strFail = { "1java_Variable$", "java%Variable$", "_"};
+        for (String str : strPass) {
+            assertEquals(true, str.matches(javaVariable()));
+        }
+        for (String str : strFail) {
+            assertEquals(false, str.matches(javaVariable()));
+        }
     }
 }
