@@ -21,7 +21,7 @@ public class StringsTest {
 
     @Test
     void javaVariableTest() {
-        String[] strPass = { "j", "$" ,"javaVariable", "_JavaVariable$", "$JavaVariable_"};
+        String[] strPass = { "j", "$" ,"javaVariable", "_Java$Variable$", "$JavaVariable_", "a1"};
         String[] strFail = { "1java_Variable$", "java%Variable$", "_"};
         for (String str : strPass) {
             assertEquals(true, str.matches(javaVariable()));

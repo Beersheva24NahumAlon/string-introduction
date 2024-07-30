@@ -7,6 +7,6 @@ public class Strings {
     }
 
     public static String javaVariable() {
-        return "(_[\\w\\$]+)|([a-zA-Z\\$][\\w\\$]*)";
+        return "(_[\\w$]+)|([a-zA-Z$][\\w$]*)";
     }
 }
