@@ -69,7 +69,7 @@ public class StringsTest {
         assertTrue("255".matches(regexp));
         assertTrue("199".matches(regexp));
         assertTrue("249".matches(regexp));
-        assertTrue("192".matches(regexp));  
+        assertTrue("192".matches(regexp));
     }
 
     @Test

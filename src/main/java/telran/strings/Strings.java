@@ -4,21 +4,21 @@ import java.util.Arrays;
 
 public class Strings {
     static final String keywords[] = { "abstract", "assert", "boolean",
-                "break", "byte", "case", "catch", "char", "class", "const",
-                "continue", "default", "do", "double", "else", "enum", "extends", "false",
-                "final", "finally", "float", "for", "goto", "if", "implements",
-                "import", "instanceof", "int", "interface", "long", "native",
-                "new", "null", "package", "private", "protected", "public",
-                "return", "short", "static", "strictfp", "super", "switch",
-                "synchronized", "this", "throw", "throws", "transient", "true",
-                "try", "void", "volatile", "while" };
+            "break", "byte", "case", "catch", "char", "class", "const",
+            "continue", "default", "do", "double", "else", "enum", "extends", "false",
+            "final", "finally", "float", "for", "goto", "if", "implements",
+            "import", "instanceof", "int", "interface", "long", "native",
+            "new", "null", "package", "private", "protected", "public",
+            "return", "short", "static", "strictfp", "super", "switch",
+            "synchronized", "this", "throw", "throws", "transient", "true",
+            "try", "void", "volatile", "while" };
 
     public static String firstName() {
-        return "([A-Z][a-z]{4,})";      
+        return "([A-Z][a-z]{4,})";
     }
 
     public static String javaVariable() {
-        //return "[a-zA-Z$]|[a-zA-Z_$][\\w$]+";
+        // return "[a-zA-Z$]|[a-zA-Z_$][\\w$]+";
         return "((?!_$)[a-zA-Z_$][\\w$]*)";
     }
 
@@ -56,16 +56,17 @@ public class Strings {
 
     public static boolean isArithmeticExpression(String expr) {
         return expr.matches(regexpArithmeticExpression()) &&
-            isBracketsRight(expr) &&
-            !isKeyWordsInExpression(expr);
+                isBracketsRight(expr) &&
+                !isKeyWordsInExpression(expr);
     }
 
     private static String regexpArithmeticExpression() {
         String operand = regexpNumber();
         String variable = javaVariable();
-        return String.format("[\\(\\s]*(%s|%s)([\\)\\s]*[-+*/][\\(\\s]*(%s|%s)[\\)\\s]*)+", operand, variable, operand, variable);
+        return String.format("[\\(\\s]*(%s|%s)([\\)\\s]*[-+*/][\\(\\s]*(%s|%s)[\\)\\s]*)+", operand, variable, operand,
+                variable);
     }
-    
+
     private static String regexpNumber() {
         return "(\\d+|\\d+\\.\\d+)";
     }
@@ -92,6 +93,6 @@ public class Strings {
         while (i < tokens.length && !isKeyword(tokens[i])) {
             i++;
         }
-        return i == tokens.length ? false : true; 
+        return i == tokens.length ? false : true;
     }
 }
