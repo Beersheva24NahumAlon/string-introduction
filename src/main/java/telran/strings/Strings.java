@@ -55,8 +55,43 @@ public class Strings {
     }
 
     public static boolean isArithmeticExpression(String expr) {
-        //TODO
-        return false;
+        return expr.matches(regexpArithmeticExpression()) &&
+            isBracketsRight(expr) &&
+            !isKeyWordsInExpression(expr);
+    }
 
+    private static String regexpArithmeticExpression() {
+        String operand = regexpNumber();
+        String variable = javaVariable();
+        return String.format("[\\(\\s]*(%s|%s)([\\)\\s]*[-+*/][\\(\\s]*(%s|%s)[\\)\\s]*)+", operand, variable, operand, variable);
+    }
+    
+    private static String regexpNumber() {
+        return "(\\d+|\\d+\\.\\d+)";
+    }
+
+    public static boolean isBracketsRight(String expr) {
+        int counter = 0;
+        int i = 0;
+        char[] array = expr.toCharArray();
+        while (counter >= 0 && i < array.length) {
+            if (array[i] == '(') {
+                counter++;
+            }
+            if (array[i] == ')') {
+                counter--;
+            }
+            i++;
+        }
+        return counter == 0 ? true : false;
+    }
+
+    public static boolean isKeyWordsInExpression(String expr) {
+        String[] tokens = expr.split("[-+*/()]");
+        int i = 0;
+        while (i < tokens.length && !isKeyword(tokens[i])) {
+            i++;
+        }
+        return i == tokens.length ? false : true; 
     }
 }

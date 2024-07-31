@@ -113,4 +113,29 @@ public class StringsTest {
         String names3 = "123 1a _ int enum null";
         assertEquals("", stringWithJavaNames(names3));
     }
+
+    @Test
+    void isArithmeticExpressionTest() {
+        assertTrue(isArithmeticExpression("1.23+ 0.01-3 /4-g "));
+        assertTrue(isArithmeticExpression("1 +i "));
+        assertTrue(isArithmeticExpression("1 + (1 + 1) - (1 + t)"));
+
+        assertFalse(isArithmeticExpression("1,23+0.01"));
+        assertFalse(isArithmeticExpression("1.23 +int"));
+        assertFalse(isArithmeticExpression("(1+(1+1)-(1+t)"));
+        assertFalse(isArithmeticExpression(")1 + (1 + 1) - (1 + t)"));
+    }
+
+    @Test
+    void isBracketsRightTest() {
+        assertTrue(isBracketsRight("1+(1+1)-(1+1)"));
+        assertTrue(isBracketsRight("((1+1)-1)+(1-(1+1))+1"));
+    }
+
+    @Test
+    void isKeyWordsInExpressionTest() {
+        assertFalse(isKeyWordsInExpression("1+(1+1)-(1+1)"));
+        assertTrue(isKeyWordsInExpression("1+1+int+4"));
+        assertTrue(isKeyWordsInExpression("1+(double+1)-(1+int)"));
+    }
 }
