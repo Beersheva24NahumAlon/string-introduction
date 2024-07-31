@@ -87,7 +87,7 @@ public class Strings {
     }
 
     public static boolean isKeyWordsInExpression(String expr) {
-        String[] tokens = expr.split("[-+*/()]");
+        String[] tokens = expr.split("[-+*/\\(\\)]+");
         int i = 0;
         while (i < tokens.length && !isKeyword(tokens[i])) {
             i++;
