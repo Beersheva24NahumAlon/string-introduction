@@ -1,8 +1,14 @@
 package telran.strings;
 
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Strings {
+    static Pattern pattern;
+    static {
+        pattern = Pattern.compile(regexpArithmeticExpression());
+    }
     static final String keywords[] = { "abstract", "assert", "boolean",
             "break", "byte", "case", "catch", "char", "class", "const",
             "continue", "default", "do", "double", "else", "enum", "extends", "false",
@@ -55,7 +61,8 @@ public class Strings {
     }
 
     public static boolean isArithmeticExpression(String expr) {
-        return expr.matches(regexpArithmeticExpression()) &&
+        Matcher matcher = pattern.matcher(expr);
+        return matcher.matches() &&
                 isBracketsRight(expr) &&
                 !isKeyWordsInExpression(expr);
     }
@@ -63,8 +70,8 @@ public class Strings {
     private static String regexpArithmeticExpression() {
         String operand = regexpNumber();
         String variable = javaVariable();
-        return String.format("[\\(\\s]*(%s|%s)([\\)\\s]*[-+*/][\\(\\s]*(%s|%s)[\\)\\s]*)+", operand, variable, operand,
-                variable);
+        return String.format("[\\(\\s]*(%s|%s)([\\)\\s]*[-+*/][\\(\\s]*(%s|%s)[\\)\\s]*)+",
+                operand, variable, operand, variable);
     }
 
     private static String regexpNumber() {

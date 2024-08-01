@@ -124,6 +124,7 @@ public class StringsTest {
         assertFalse(isArithmeticExpression("1.23 +int"));
         assertFalse(isArithmeticExpression("(1+(1+1)-(1+t)"));
         assertFalse(isArithmeticExpression(")1 + (1 + 1) - (1 + t)"));
+        assertFalse(isArithmeticExpression("1"));
     }
 
     @Test
