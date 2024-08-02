@@ -11,30 +11,30 @@ public class StringsTest {
 
     @Test
     void firstNameTest() {
-        assertTrue("Nahum".matches(firstName()));
+        assertTrue("Nahum".matches(regexpFirstName()));
 
-        assertFalse("Nah".matches(firstName()));
-        assertFalse("NAhum".matches(firstName()));
-        assertFalse("NahuM".matches(firstName()));
+        assertFalse("Nah".matches(regexpFirstName()));
+        assertFalse("NAhum".matches(regexpFirstName()));
+        assertFalse("NahuM".matches(regexpFirstName()));
     }
 
     @Test
     void javaVariableTest() {
-        assertTrue("j".matches(javaVariable()));
-        assertTrue("$".matches(javaVariable()));
-        assertTrue("javaVariable".matches(javaVariable()));
-        assertTrue("_Java$Variable$".matches(javaVariable()));
-        assertTrue("$JavaVariable_".matches(javaVariable()));
-        assertTrue("a1".matches(javaVariable()));
+        assertTrue("j".matches(regexpJavaVariable()));
+        assertTrue("$".matches(regexpJavaVariable()));
+        assertTrue("javaVariable".matches(regexpJavaVariable()));
+        assertTrue("_Java$Variable$".matches(regexpJavaVariable()));
+        assertTrue("$JavaVariable_".matches(regexpJavaVariable()));
+        assertTrue("a1".matches(regexpJavaVariable()));
 
-        assertFalse("1java_Variable$".matches(javaVariable()));
-        assertFalse("java%Variable$".matches(javaVariable()));
-        assertFalse("_".matches(javaVariable()));
+        assertFalse("1java_Variable$".matches(regexpJavaVariable()));
+        assertFalse("java%Variable$".matches(regexpJavaVariable()));
+        assertFalse("_".matches(regexpJavaVariable()));
     }
 
     @Test
     void number0_300TrueTest() {
-        String regexp = number0_300();
+        String regexp = regexpNumber0_300();
         assertTrue("123".matches(regexp));
         assertTrue("0".matches(regexp));
         assertTrue("300".matches(regexp));
@@ -46,7 +46,7 @@ public class StringsTest {
 
     @Test
     void number0_300FalseTest() {
-        String regexp = number0_300();
+        String regexp = regexpNumber0_300();
         assertFalse("00".matches(regexp));
         assertFalse("301".matches(regexp));
         assertFalse("01".matches(regexp));
@@ -60,7 +60,7 @@ public class StringsTest {
 
     @Test
     void ipV4OctetTrueTest() {
-        String regexp = ipV4Octet();
+        String regexp = regexpIpV4Octet();
         assertTrue("0".matches(regexp));
         assertTrue("00".matches(regexp));
         assertTrue("000".matches(regexp));
@@ -74,7 +74,7 @@ public class StringsTest {
 
     @Test
     void ipV4OctetFalseTest() {
-        String regexp = ipV4Octet();
+        String regexp = regexpIpV4Octet();
         assertFalse("0000".matches(regexp));
         assertFalse("t".matches(regexp));
         assertFalse("-1".matches(regexp));
@@ -88,7 +88,7 @@ public class StringsTest {
 
     @Test
     void ipV4AddressTrueTest() {
-        String regexp = ipV4Address();
+        String regexp = regexpIpV4Address();
         assertTrue("0.0.0.0".matches(regexp));
         assertTrue("192.168.0.1".matches(regexp));
         assertTrue("255.255.255.255".matches(regexp));
@@ -96,7 +96,7 @@ public class StringsTest {
 
     @Test
     void ipV4AddressFalseTest() {
-        String regexp = ipV4Address();
+        String regexp = regexpIpV4Address();
         assertFalse("0.0.0".matches(regexp));
         assertFalse("0.0.0+0".matches(regexp));
         assertFalse("0".matches(regexp));

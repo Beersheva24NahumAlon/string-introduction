@@ -19,25 +19,25 @@ public class Strings {
             "synchronized", "this", "throw", "throws", "transient", "true",
             "try", "void", "volatile", "while" };
 
-    public static String firstName() {
+    public static String regexpFirstName() {
         return "([A-Z][a-z]{4,})";
     }
 
-    public static String javaVariable() {
+    public static String regexpJavaVariable() {
         // return "[a-zA-Z$]|[a-zA-Z_$][\\w$]+";
         return "((?!_$)[a-zA-Z_$][\\w$]*)";
     }
 
-    public static String number0_300() {
+    public static String regexpNumber0_300() {
         return "0|[1-9]\\d?|[1-2]\\d\\d|300";
     }
 
-    public static String ipV4Octet() {
+    public static String regexpIpV4Octet() {
         return "([0-1]?\\d{1,2}|2([0-4]\\d|5[0-5]))";
     }
 
-    public static String ipV4Address() {
-        String octetExpr = ipV4Octet();
+    public static String regexpIpV4Address() {
+        String octetExpr = regexpIpV4Octet();
         return String.format("%s(\\.%s){3}", octetExpr, octetExpr);
     }
 
@@ -53,7 +53,7 @@ public class Strings {
     }
 
     private static boolean isJavaName(String str) {
-        return str.matches(javaVariable()) && !isKeyword(str) ? true : false;
+        return str.matches(regexpJavaVariable()) && !isKeyword(str) ? true : false;
     }
 
     private static boolean isKeyword(String str) {
@@ -68,14 +68,25 @@ public class Strings {
     }
 
     private static String regexpArithmeticExpression() {
-        String operand = regexpNumber();
-        String variable = javaVariable();
-        return String.format("[\\(\\s]*(%s|%s)([\\)\\s]*[-+*/][\\(\\s]*(%s|%s)[\\)\\s]*)+",
-                operand, variable, operand, variable);
+        String operand = regexpOperand();
+        String operator = regexpOperator();
+        return String.format("%s(%s%s)+", operand, operator, operand);
+    }
+
+    private static String regexpOperator() {
+        return "([-+*/])";
+    }
+
+    private static String regexpSepator() {
+        return String.format("(%s|[\\s()]+)", regexpOperator());
     }
 
     private static String regexpNumber() {
         return "(\\d+|\\d+\\.\\d+)";
+    }
+
+    private static String regexpOperand() {
+        return String.format("([(\\s]*(%s|%s)[\\s)]*)", regexpNumber(), regexpJavaVariable());
     }
 
     public static boolean isBracketsRight(String expr) {
@@ -91,11 +102,11 @@ public class Strings {
             }
             i++;
         }
-        return counter == 0 ? true : false;
+        return counter == 0;
     }
 
     public static boolean isKeyWordsInExpression(String expr) {
-        String[] tokens = expr.split("[-+*/\\(\\)]+");
+        String[] tokens = expr.split(regexpSepator());
         int i = 0;
         while (i < tokens.length && !isKeyword(tokens[i])) {
             i++;
